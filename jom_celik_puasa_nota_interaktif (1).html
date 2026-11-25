@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jom Celik Puasa: Perkara Membatalkan Puasa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Pixel Art & Readable Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Press+Start+2P&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Tone.js untuk kesan bunyi retro 8-bit -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <style>
+        :root {
+            --bg-night: #120b2e;
+            --bg-indigo: #1f144d;
+            --accent-pink: #ff2a85;
+            --accent-gold: #ffbe0b;
+            --accent-cyan: #00f5d4;
+            --pixel-border: #0a051d;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: var(--bg-night);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(255, 190, 11, 0.12) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 42, 133, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(0, 245, 212, 0.1) 0%, transparent 40%),
+                linear-gradient(180deg, #0d0724 0%, #1d1147 50%, #2a1863 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .font-pixel {
+            font-family: 'Press Start 2P', cursive;
+            line-height: 1.5;
+        }
+
+        .font-arab {
+            font-family: 'Amiri', serif;
+            line-height: 2;
+        }
+
+        /* Gaya Bingkai Retro Pixel Art */
+        .pixel-box {
+            background: rgba(31, 20, 77, 0.92);
+            border: 4px solid #3c2a85;
+            box-shadow: 
+                0 0 0 4px var(--pixel-border),
+                0 10px 25px rgba(0, 0, 0, 0.6),
+                inset 0 2px 0 rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+        }
+
+        .pixel-box-pink {
+            background: linear-gradient(145deg, #2b165c, #1c0e40);
+            border: 4px solid var(--accent-pink);
+            box-shadow: 
+                0 0 0 4px var(--pixel-border),
+                0 8px 20px rgba(255, 42, 133, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+        }
+
+        .pixel-box-gold {
+            background: linear-gradient(145deg, #332059, #1f123d);
+            border: 4px solid var(--accent-gold);
+            box-shadow: 
+                0 0 0 4px var(--pixel-border),
+                0 8px 20px rgba(255, 190, 11, 0.25),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+        }
+
+        /* Butang Retro 3D */
+        .btn-pixel {
+            position: relative;
+            transition: all 0.12s ease;
+            border: 3px solid var(--pixel-border);
+            box-shadow: 0 5px 0 var(--pixel-border), 0 8px 15px rgba(0,0,0,0.4);
+            border-radius: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .btn-pixel:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 var(--pixel-border), 0 10px 18px rgba(0,0,0,0.5);
+            filter: brightness(1.08);
+        }
+
+        .btn-pixel:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 var(--pixel-border);
+        }
+
+        .btn-pixel:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Tajuk Utama Gaya Logo Jom Celik Puasa */
+        .title-gradient-gold {
+            background: linear-gradient(180deg, #fff3b0 0%, #ffbe0b 55%, #fb5607 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(3px 3px 0px #0a051d);
+        }
+
+        .title-white-shadow {
+            color: #ffffff;
+            text-shadow: 3px 3px 0px #0a051d, -1px -1px 0px #0a051d;
+        }
+
+        /* Animasi Terapung (Floating) */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-float {
+            animation: float 3.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 190, 11, 0.6)); }
+            50% { filter: drop-shadow(0 0 18px rgba(255, 190, 11, 1)); }
+        }
+        .lantern-glow {
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+
+        /* Kad Flip 3D untuk Kad Nota Bergambar */
+        .flip-card {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 16px;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Bintang Latar Belakang */
+        .star {
+            position: fixed;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0724;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff2a85;
+            border-radius: 5px;
+            border: 2px solid #0d0724;
+        }
+    </style>
+</head>
+<body class="relative pb-16">
+
+    <!-- Latar Belakang Bintang Berkelip -->
+    <div id="starfield"></div>
+
+    <!-- Bar Status Atas (HUD Game) -->
+    <header class="sticky top-0 z-40 bg-[#120b2e]/90 backdrop-blur-md border-b-4 border-[#3c2a85] px-3 py-2.5 sm:px-6 shadow-lg">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <!-- Nyawa (3 Hati seperti dalam gambar rujukan) -->
+            <div class="flex items-center gap-2 bg-[#1f144d] border-2 border-[#ff2a85] px-3 py-1.5 rounded-xl shadow-inner">
+                <span class="text-xs font-pixel text-pink-300 hidden sm:inline">NYAWA:</span>
+                <div id="hearts-container" class="flex items-center gap-1 text-lg sm:text-xl">
+                    <span>❤️</span><span>❤️</span><span>❤️</span>
+                </div>
+                <button onclick="resetLives()" title="Pulihkan Nyawa" class="ml-1 text-xs bg-pink-600 hover:bg-pink-500 text-white px-2 py-0.5 rounded font-bold transition">
+                    +Pulih
+                </button>
+            </div>
+
+            <!-- Tajuk Kecil Tengah -->
+            <div class="flex items-center gap-2 cursor-pointer" onclick="switchTab('intro')">
+                <span class="text-xl lantern-glow">🏮</span>
+                <span class="font-pixel text-xs sm:text-sm text-amber-300 tracking-wide">JOM CELIK PUASA</span>
+            </div>
+
+            <!-- Skor Syiling Emas & Kawalan Bunyi -->
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 bg-[#1f144d] border-2 border-amber-400 px-3 py-1.5 rounded-xl">
+                    <span class="text-base sm:text-lg">🪙</span>
+                    <span id="coin-score" class="font-pixel text-xs sm:text-sm text-amber-300">0</span>
+                </div>
+                <button id="sound-toggle" onclick="toggleSound()" class="bg-[#2c1d6e] hover:bg-[#3b2791] border-2 border-cyan-400 p-2 rounded-xl text-cyan-300 transition" title="Bunyi Kesan Khas">
+                    🔊
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner (Mengikut Tema Gambar Rujukan) -->
+    <section class="relative z-10 max-w-6xl mx-auto px-4 pt-6 pb-4">
+        <div class="pixel-box-pink p-5 sm:p-8 relative overflow-hidden">
+            <!-- Dekorasi Bulan & Masjid SVG -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Kiri: Karakter & Tanglung -->
+                <div class="flex items-center gap-4">
+                    <div class="animate-float text-5xl sm:text-6xl lantern-glow select-none">🏮</div>
+                    <div>
+                        <div class="inline-flex items-center gap-2 bg-amber-400/20 border border-amber-400 text-amber-300 text-xs font-bold px-3 py-1 rounded-full mb-2">
+                            <span>🌙</span> MODUL INTERAKTIF PENDIDIKAN ISLAM
+                        </div>
+                        <h1 class="font-pixel text-xl sm:text-3xl md:text-4xl leading-snug">
+                            <span class="title-white-shadow block">Jom</span>
+                            <span class="title-gradient-gold block my-1">Celik Puasa</span>
+                        </h1>
+                        <p class="text-indigo-200 text-sm sm:text-base mt-2 font-medium">
+                            Tajuk: <span class="text-cyan-300 font-bold">Perkara-Perkara Yang Membatalkan Puasa</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Kanan: Ilustrasi Pixel Masjid & Pengembara SVG -->
+                <div class="flex items-center gap-3 bg-[#120b2e]/70 p-4 rounded-2xl border-2 border-indigo-500/40">
+                    <!-- SVG Karakter Pengembara & Kucing -->
+                    <svg width="85" height="85" viewBox="0 0 64 64" class="shrink-0">
+                        <!-- Bintang -->
+                        <rect x="8" y="8" width="4" height="4" fill="#ffbe0b"/>
+                        <rect x="52" y="12" width="4" height="4" fill="#00f5d4"/>
+                        <!-- Bulan Sabit -->
+                        <path d="M46 6 A8 8 0 1 0 56 16 A6 6 0 1 1 46 6 Z" fill="#ffbe0b"/>
+                        <!-- Tanah Pixel -->
+                        <rect x="4" y="52" width="56" height="8" fill="#3a86ff" rx="2"/>
+                        <rect x="4" y="48" width="56" height="4" fill="#06d6a0"/>
+                        <!-- Pengembara -->
+                        <rect x="18" y="20" width="12" height="10" fill="#ffcdb2" rx="2"/> <!-- Kepala -->
+                        <rect x="17" y="17" width="14" height="5" fill="#1d1147"/> <!-- Rambut -->
+                        <rect x="18" y="30" width="12" height="12" fill="#ffffff"/> <!-- Baju -->
+                        <rect x="13" y="30" width="5" height="10" fill="#3a86ff"/> <!-- Beg Galas -->
+                        <rect x="19" y="42" width="4" height="6" fill="#1d1147"/> <!-- Kaki -->
+                        <rect x="25" y="42" width="4" height="6" fill="#1d1147"/> <!-- Kaki -->
+                        <!-- Kucing Comel -->
+                        <rect x="36" y="38" width="8" height="10" fill="#fb8500" rx="2"/>
+                        <rect x="36" y="35" width="3" height="3" fill="#fb8500"/>
+                        <rect x="41" y="35" width="3" height="3" fill="#fb8500"/>
+                        <rect x="44" y="42" width="3" height="6" fill="#ffb703"/>
+                    </svg>
+                    <div class="text-xs sm:text-sm space-y-1">
+                        <p class="font-bold text-amber-300">Misi Pengembaraan Ilmu:</p>
+                        <p class="text-indigo-200">1. Fahami Asas Puasa 📖</p>
+                        <p class="text-emerald-300">2. Tahap Rendah 🌱</p>
+                        <p class="text-sky-300">3. Tahap Sederhana ⚔️</p>
+                        <p class="text-pink-300">4. Tahap Cemerlang 👑</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigasi Peta Pengembaraan (Tabs) -->
+    <nav class="relative z-10 max-w-6xl mx-auto px-4 my-4">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <button onclick="switchTab('intro')" id="tab-intro" class="btn-pixel bg-gradient-to-b from-amber-400 to-amber-600 text-slate-950 p-3 sm:p-4 text-left flex items-center gap-3 ring-4 ring-white">
+                <span class="text-2xl sm:text-3xl">📖</span>
+                <div>
+                    <div class="font-pixel text-[10px] sm:text-xs">MULA</div>
+                    <div class="font-bold text-sm sm:text-base">Asas Puasa</div>
+                </div>
+            </button>
+
+            <button onclick="switchTab('rendah')" id="tab-rendah" class="btn-pixel bg-gradient-to-b from-emerald-500 to-emerald-700 text-white p-3 sm:p-4 text-left flex items-center gap-3">
+                <span class="text-2xl sm:text-3xl">🌱</span>
+                <div>
+                    <div class="font-pixel text-[10px] sm:text-xs text-emerald-200">TAHAP 1</div>
+                    <div class="font-bold text-sm sm:text-base">Rendah</div>
+                </div>
+            </button>
+
+            <button onclick="switchTab('sederhana')" id="tab-sederhana" class="btn-pixel bg-gradient-to-b from-sky-500 to-blue-700 text-white p-3 sm:p-4 text-left flex items-center gap-3">
+                <span class="text-2xl sm:text-3xl">⚔️</span>
+                <div>
+                    <div class="font-pixel text-[10px] sm:text-xs text-sky-200">TAHAP 2</div>
+                    <div class="font-bold text-sm sm:text-base">Sederhana</div>
+                </div>
+            </button>
+
+            <button onclick="switchTab('cemerlang')" id="tab-cemerlang" class="btn-pixel bg-gradient-to-b from-pink-500 to-purple-700 text-white p-3 sm:p-4 text-left flex items-center gap-3">
+                <span class="text-2xl sm:text-3xl">👑</span>
+                <div>
+                    <div class="font-pixel text-[10px] sm:text-xs text-pink-200">TAHAP 3</div>
+                    <div class="font-bold text-sm sm:text-base">Cemerlang</div>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- KANDUNGAN UTAMA -->
+    <main class="relative z-10 max-w-6xl mx-auto px-4 mt-6">
+
+        <!-- ========================================================= -->
+        <!-- SEKSYEN 0: PENGENALAN PUASA (PENGERTIAN, DALIL & HUKUM)   -->
+        <!-- ========================================================= -->
+        <section id="section-intro" class="space-y-6">
+            <div class="pixel-box-gold p-5 sm:p-7">
+                <div class="flex items-center gap-3 mb-4 border-b-2 border-amber-400/30 pb-3">
+                    <span class="text-3xl">🕌</span>
+                    <div>
+                        <h2 class="font-pixel text-sm sm:text-lg text-amber-300">GERBANG ILMU: ASAS PUASA</h2>
+                        <p class="text-sm text-indigo-200">Kuasai asas puasa sebelum memulakan cabaran tiga tahap penguasaan!</p>
+                    </div>
+                </div>
+
+                <!-- 1. Pengertian Puasa -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    <div class="bg-[#140c33] border-2 border-cyan-400/60 rounded-2xl p-5 shadow-lg">
+                        <div class="flex items-center gap-2 text-cyan-300 font-bold text-lg mb-2">
+                            <span>🗣️</span> 1. Pengertian Puasa (Bahasa)
+                        </div>
+                        <p class="text-slate-200 text-base leading-relaxed">
+                            Dari segi bahasa Arab (<span class="text-amber-300 font-bold">الصَّوْمُ / As-Saum</span>), puasa bermaksud <span class="bg-cyan-500/20 text-cyan-200 px-2 py-0.5 rounded font-bold">menahan diri</span> daripada melakukan sesuatu perkara (seperti makan, minum, atau bercakap).
+                        </p>
+                    </div>
+
+                    <div class="bg-[#140c33] border-2 border-pink-400/60 rounded-2xl p-5 shadow-lg">
+                        <div class="flex items-center gap-2 text-pink-300 font-bold text-lg mb-2">
+                            <span>📜</span> 2. Pengertian Puasa (Istilah Syarak)
+                        </div>
+                        <p class="text-slate-200 text-base leading-relaxed">
+                            <span class="text-amber-300 font-bold">Menahan diri daripada perkara-perkara yang membatalkan puasa</span> bermula dari <span class="underline decoration-pink-400">terbit fajar sadiq</span> sehingga <span class="underline decoration-pink-400">terbenam matahari</span> berserta dengan <span class="text-emerald-300 font-bold">niat</span> dan syarat-syarat tertentu.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. Dalil Naqli -->
+                <div class="bg-gradient-to-r from-[#190f42] via-[#261663] to-[#190f42] border-2 border-amber-400 rounded-2xl p-5 sm:p-6 mb-6">
+                    <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+                        <span class="font-bold text-amber-300 text-lg flex items-center gap-2">
+                            <span>📖</span> 3. Dalil Wajib Berpuasa (Surah Al-Baqarah: 183)
+                        </span>
+                        <span class="text-xs bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded-full">Al-Quran Al-Karim</span>
+                    </div>
+                    <p class="font-arab text-2xl sm:text-3xl text-right text-white bg-[#0e0726]/80 p-4 rounded-xl border border-amber-400/30 my-3" dir="rtl">
+                        يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ
+                    </p>
+                    <p class="text-indigo-100 italic text-sm sm:text-base bg-indigo-950/60 p-3.5 rounded-xl border-l-4 border-amber-400">
+                        <strong>Maksudnya:</strong> "Wahai orang-orang yang beriman! Kamu diwajibkan berpuasa sebagaimana diwajibkan atas orang-orang yang dahulu daripada kamu, supaya kamu bertakwa."
+                    </p>
+                </div>
+
+                <!-- 3. Hukum Puasa -->
+                <div class="bg-[#140c33] border-2 border-emerald-400/60 rounded-2xl p-5">
+                    <h3 class="font-bold text-emerald-300 text-lg mb-3 flex items-center gap-2">
+                        <span>⚖️</span> 4. Hukum Puasa Ramadan
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-emerald-950/50 border border-emerald-500/40 p-4 rounded-xl">
+                            <div class="text-2xl mb-1">🌟</div>
+                            <div class="font-bold text-emerald-300 text-base">WAJIB (Fardu Ain)</div>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-1">Ke atas setiap individu Muslim yang mukallaf (baligh, berakal), sihat dan mampu berpuasa di bulan Ramadan.</p>
+                        </div>
+                        <div class="bg-sky-950/50 border border-sky-500/40 p-4 rounded-xl">
+                            <div class="text-2xl mb-1">🏛️</div>
+                            <div class="font-bold text-sky-300 text-base">Rukun Islam Ke-3</div>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-1">Merupakan salah satu tiang utama dalam agama Islam yang wajib dipatuhi.</p>
+                        </div>
+                        <div class="bg-rose-950/50 border border-rose-500/40 p-4 rounded-xl">
+                            <div class="text-2xl mb-1">⚠️</div>
+                            <div class="font-bold text-rose-300 text-base">Berdosa Jika Ditinggalkan</div>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-1">Sesiapa yang meninggalkannya dengan sengaja tanpa uzur syarie mendapat dosa besar dan wajib qada.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Butang Teruskan ke Tahap 1 -->
+                <div class="mt-6 text-center">
+                    <button onclick="switchTab('rendah')" class="btn-pixel bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-bold px-6 py-3.5 text-base sm:text-lg inline-flex items-center gap-2">
+                        <span>Mulakan Tahap 1: Rendah</span> <span>➡️</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SEKSYEN 1: TAHAP RENDAH (MENGENAL DAN MENGINGAT)          -->
+        <!-- ========================================================= -->
+        <section id="section-rendah" class="hidden space-y-6">
+            <!-- Header Tahap Rendah -->
+            <div class="pixel-box p-5 sm:p-6 border-emerald-400">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <span class="bg-emerald-500 text-slate-950 font-pixel text-[10px] px-3 py-1 rounded-full">TAHAP 1 • RENDAH</span>
+                        <h2 class="font-pixel text-base sm:text-xl text-emerald-300 mt-2">FOKUS: MENGENAL & MENGINGAT</h2>
+                    </div>
+                    <div class="text-right text-xs sm:text-sm text-emerald-200 bg-emerald-950/60 px-4 py-2 rounded-xl border border-emerald-500/40">
+                        Objektif: Mengenal pasti perkara asas yang membatalkan puasa.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1 & 2: Maksud & Pengenalan Perkara Membatalkan Puasa -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="pixel-box p-5">
+                    <h3 class="font-bold text-amber-300 text-lg mb-2 flex items-center gap-2">
+                        <span>💡</span> 1. Maksud Perkara Membatalkan Puasa
+                    </h3>
+                    <p class="text-slate-200 leading-relaxed text-sm sm:text-base">
+                        Perbuatan atau keadaan yang menyebabkan <span class="text-rose-400 font-bold">ibadah puasa seseorang menjadi tidak sah (rosak)</span> ketika sedang berpuasa pada siang hari, sehingga dia wajib menggantikannya (qada) pada hari lain.
+                    </p>
+                </div>
+                <div class="pixel-box p-5">
+                    <h3 class="font-bold text-cyan-300 text-lg mb-2 flex items-center gap-2">
+                        <span>🔍</span> 2. Pengenalan Perkara Membatalkan Puasa
+                    </h3>
+                    <p class="text-slate-200 leading-relaxed text-sm sm:text-base">
+                        Secara umumnya, puasa terbatal apabila <span class="text-amber-300 font-bold">sesuatu benda masuk ke dalam rongga terbuka</span> (seperti mulut, hidung, telinga, kemaluan) dengan sengaja, atau berlaku perubahan keadaan diri seperti haid, pitam sepanjang hari, dan gila.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3. Kad Nota Bergambar Interaktif (Klik untuk Pusing!) -->
+            <div class="pixel-box p-5 sm:p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h3 class="font-bold text-emerald-300 text-lg sm:text-xl flex items-center gap-2">
+                        <span>🃏</span> 3. Kad Nota Bergambar (Klik Kad Untuk Pusing!)
+                    </h3>
+                    <span class="text-xs text-amber-300 bg-amber-500/10 border border-amber-400/40 px-3 py-1 rounded-full">
+                        8 Kad Perkara Membatalkan Puasa
+                    </span>
+                </div>
+
+                <div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Dijana oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- 4. Contoh Situasi Mudah -->
+            <div class="pixel-box p-5 sm:p-6">
+                <h3 class="font-bold text-amber-300 text-lg sm:text-xl mb-4 flex items-center gap-2">
+                    <span>🧸</span> 4. Contoh Situasi Mudah
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-[#140c33] border-2 border-rose-500/50 p-4 rounded-2xl">
+                        <div class="text-3xl mb-2">🥤</div>
+                        <div class="font-bold text-rose-300 mb-1">Situasi A: Minum Air Sejuk</div>
+                        <p class="text-sm text-slate-300">Ali berasa sangat dahaga pada pukul 2 petang, lalu dia membuka peti sejuk dan minum segelas air sirap dengan sengaja.</p>
+                        <div class="mt-3 inline-block bg-rose-600 text-white text-xs font-bold px-2.5 py-1 rounded">Status: BATAL PUASA ❌</div>
+                    </div>
+
+                    <div class="bg-[#140c33] border-2 border-emerald-500/50 p-4 rounded-2xl">
+                        <div class="text-3xl mb-2">😴</div>
+                        <div class="font-bold text-emerald-300 mb-1">Situasi B: Tidur di Siang Hari</div>
+                        <p class="text-sm text-slate-300">Siti tidur selepas solat Zohor selama 1 jam kerana keletihan, kemudian bangun untuk solat Asar.</p>
+                        <div class="mt-3 inline-block bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded">Status: PUASA SAH ✅</div>
+                    </div>
+
+                    <div class="bg-[#140c33] border-2 border-rose-500/50 p-4 rounded-2xl">
+                        <div class="text-3xl mb-2">🤮</div>
+                        <div class="font-bold text-rose-300 mb-1">Situasi C: Muntah Dengan Sengaja</div>
+                        <p class="text-sm text-slate-300">Ahmad memasukkan jarinya ke dalam tekak supaya dia muntah kerana perutnya terasa tidak selesa.</p>
+                        <div class="mt-3 inline-block bg-rose-600 text-white text-xs font-bold px-2.5 py-1 rounded">Status: BATAL PUASA ❌</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Aktiviti Kenal Pasti Gambar (Tahap Rendah) -->
+            <div class="pixel-box-gold p-5 sm:p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h3 class="font-pixel text-sm sm:text-base text-amber-300 flex items-center gap-2">
+                        <span>🎮</span> 5. AKTIVITI: KENAL PASTI GAMBAR
+                    </h3>
+                    <span id="rendah-progress" class="text-xs font-bold bg-indigo-900 px-3 py-1 rounded-full text-cyan-300">Soalan 1 / 5</span>
+                </div>
+                <p class="text-sm text-indigo-200 mb-4">Pilih gambar manakah yang <strong>MEMBATALKAN PUASA</strong> apabila dilakukan dengan sengaja!</p>
+
+                <div id="rendah-quiz-container" class="bg-[#120b2e] border-2 border-indigo-500/50 rounded-2xl p-5">
+                    <!-- Kandungan Kuiz Tahap Rendah -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SEKSYEN 2: TAHAP SEDERHANA (MEMAHAMI DAN MEMBEZAKAN)       -->
+        <!-- ========================================================= -->
+        <section id="section-sederhana" class="hidden space-y-6">
+            <!-- Header Tahap Sederhana -->
+            <div class="pixel-box p-5 sm:p-6 border-sky-400">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <span class="bg-sky-400 text-slate-950 font-pixel text-[10px] px-3 py-1 rounded-full">TAHAP 2 • SEDERHANA</span>
+                        <h2 class="font-pixel text-base sm:text-xl text-sky-300 mt-2">FOKUS: MEMAHAMI & MEMBEZAKAN</h2>
+                    </div>
+                    <div class="text-right text-xs sm:text-sm text-sky-200 bg-sky-950/60 px-4 py-2 rounded-xl border border-sky-500/40">
+                        Objektif: Membezakan perbuatan sengaja vs tidak sengaja serta sebab hukum.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. Penerangan Setiap Perkara Yang Membatalkan Puasa -->
+            <div class="pixel-box p-5 sm:p-6">
+                <h3 class="font-bold text-sky-300 text-lg sm:text-xl mb-4 flex items-center gap-2">
+                    <span>📋</span> 1. Penerangan Perkara Yang Membatalkan Puasa
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm sm:text-base">
+                    <div class="bg-[#140c33] p-4 rounded-xl border-l-4 border-rose-500">
+                        <div class="font-bold text-amber-300">1. Makan atau Minum Dengan Sengaja</div>
+                        <p class="text-slate-300 mt-1">Memasukkan makanan, minuman, atau ubat ke dalam rongga mulut sehingga sampai ke perut walaupun sedikit (seperti sebutir nasi atau setitik air).</p>
+                    </div>
+                    <div class="bg-[#140c33] p-4 rounded-xl border-l-4 border-rose-500">
+                        <div class="font-bold text-amber-300">2. Memasukkan Sesuatu ke Dalam Rongga Terbuka</div>
+                        <p class="text-slate-300 mt-1">Memasukkan benda ke dalam rongga yang terbuka (mulut, hidung, telinga bahagian dalam, qubul/dubur) melepasi had zahir (contohnya menyedut air terlalu dalam ketika berwuduk).</p>
+                    </div>
+                    <div class="bg-[#140c33] p-4 rounded-xl border-l-4 border-rose-500">
+                        <div class="font-bold text-amber-300">3. Muntah Dengan Sengaja</div>
+                        <p class="text-slate-300 mt-1">Mengeluarkan isi perut melalui mulut secara sengaja (seperti menjolok tekak atau menghidu bau busuk untuk muntah). Jika termuntah tanpa sengaja dan tidak ditelan semula, puasa tidak batal.</p>
+                    </div>
+                    <div class="bg-[#140c33] p-4 rounded-xl border-l-4 border-rose-500">
+                        <div class="font-bold text-amber-300">4. Keluar Darah Haid atau Nifas</div>
+                        <p class="text-slate-300 mt-1">Wanita yang kedatangan haid atau nifas walaupun hanya beberapa minit sebelum azan Maghrib, puasanya terbatal serta-merta dan wajib qada.</p>
+                    </div>
+                    <div class="bg-[#140c33] p-4 rounded-xl border-l-4 border-rose-500">
+                        <div class="font-bold text-amber-300">5. Mengeluarkan Air Mani Dengan Sengaja</div>
+                        <p class="text-slate-300 mt-1">Mengeluarkan mani dengan sengaja melalui perbuatan tertentu. Jika keluar kerana mimpi basah di siang hari, puasa tetap sah (wajib mandi wajib).</p>
+                    </div>
+                    <div class="bg-[#140c33] p-4 rounded-xl border-l-4 border-rose-500">
+                        <div class="font-bold text-amber-300">6. Bersetubuh (Jimak) di Siang Hari</div>
+                        <p class="text-slate-300 mt-1">Melakukan hubungan suami isteri pada siang hari Ramadan. Membatalkan puasa, wajib qada serta dikenakan hukuman berat (Kaffarah).</p>
+                    </div>
+                    <div class="bg-[#140c33] p-4 rounded-xl border-l-4 border-rose-500">
+                        <div class="font-bold text-amber-300">7. Pitam atau Mabuk Sepanjang Hari</div>
+                        <p class="text-slate-300 mt-1">Hilang kesedaran bermula sebelum terbit fajar hingga terbenam matahari. Jika sedar walaupun seketika pada siang hari, puasanya sah.</p>
+                    </div>
+                    <div class="bg-[#140c33] p-4 rounded-xl border-l-4 border-rose-500">
+                        <div class="font-bold text-amber-300">8. Gila atau Murtad</div>
+                        <p class="text-slate-300 mt-1">Hilang akal (gila) walau sekejap atau keluar daripada agama Islam (murtad) membatalkan puasa kerana hilang syarat sah ibadah.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Perbezaan Perbuatan Sengaja dan Tidak Sengaja -->
+            <div class="pixel-box p-5 sm:p-6">
+                <h3 class="font-bold text-amber-300 text-lg sm:text-xl mb-4 flex items-center gap-2">
+                    <span>⚖️</span> 2. Perbezaan Perbuatan Sengaja vs Tidak Sengaja
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse rounded-xl overflow-hidden">
+                        <thead>
+                            <tr class="bg-indigo-900 text-amber-300 text-xs sm:text-sm uppercase">
+                                <th class="p-3 sm:p-4 border border-indigo-700">Aspek / Contoh</th>
+                                <th class="p-3 sm:p-4 border border-indigo-700 bg-rose-950/60 text-rose-300">Sengaja (Tahu & Sedar)</th>
+                                <th class="p-3 sm:p-4 border border-indigo-700 bg-emerald-950/60 text-emerald-300">Tidak Sengaja / Terlupa</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-xs sm:text-sm bg-[#140c33]">
+                            <tr>
+                                <td class="p-3 sm:p-4 border border-indigo-800 font-bold text-cyan-300">Makan & Minum</td>
+                                <td class="p-3 sm:p-4 border border-indigo-800 text-rose-200"><strong>BATAL ❌</strong> & berdosa jika tiada uzur.</td>
+                                <td class="p-3 sm:p-4 border border-indigo-800 text-emerald-200"><strong>TIDAK BATAL ✅</strong> (Rezeki daripada Allah, teruskan puasa sebaik teringat).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 sm:p-4 border border-indigo-800 font-bold text-cyan-300">Berkumur Ketika Wuduk</td>
+                                <td class="p-3 sm:p-4 border border-indigo-800 text-rose-200"><strong>BATAL ❌</strong> jika berkumur secara berlebihan (mubalaghah) sehingga air tertelan.</td>
+                                <td class="p-3 sm:p-4 border border-indigo-800 text-emerald-200"><strong>TIDAK BATAL ✅</strong> jika berkumur secara sederhana dan air tertelan tanpa sengaja.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 sm:p-4 border border-indigo-800 font-bold text-cyan-300">Muntah</td>
+                                <td class="p-3 sm:p-4 border border-indigo-800 text-rose-200"><strong>BATAL ❌</strong> kerana sengaja memaksa diri untuk muntah.</td>
+                                <td class="p-3 sm:p-4 border border-indigo-800 text-emerald-200"><strong>TIDAK BATAL ✅</strong> jika termuntah secara tiba-tiba akibat loya/sakit dan tidak menelannya kembali.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 sm:p-4 border border-indigo-800 font-bold text-cyan-300">Debu Jalanan / Lalat</td>
+                                <td class="p-3 sm:p-4 border border-indigo-800 text-rose-200"><strong>BATAL ❌</strong> jika sengaja membuka mulut untuk menelan asap rokok/vape.</td>
+                                <td class="p-3 sm:p-4 border border-indigo-800 text-emerald-200"><strong>TIDAK BATAL ✅</strong> jika debu jalanan atau serangga kecil masuk tanpa sengaja.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 3 & 4. Situasi Kehidupan Harian + Contoh dan Sebab Hukum -->
+            <div class="pixel-box p-5 sm:p-6">
+                <h3 class="font-bold text-cyan-300 text-lg sm:text-xl mb-4 flex items-center gap-2">
+                    <span>🏙️</span> 3 & 4. Situasi Kehidupan Harian, Contoh & Sebab Hukum
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-[#140c33] border border-indigo-500/50 p-4 rounded-2xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-amber-300">🪥 Memberus Gigi Dengan Ubat Gigi</span>
+                            <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Makruh (Sah Jika Tak Tertelan)</span>
+                        </div>
+                        <p class="text-sm text-slate-300"><strong>Situasi:</strong> Faris memberus gigi pada pukul 11 pagi dan meludah semua buih ubat gigi tanpa menelannya.</p>
+                        <p class="text-xs text-cyan-300 mt-2 bg-cyan-950/50 p-2 rounded"><strong>Sebab Hukum:</strong> Puasa sah kerana tiada zat masuk ke dalam perut, namun hukumnya makruh selepas gelincir matahari kerana dibimbangi tertelan.</p>
+                    </div>
+
+                    <div class="bg-[#140c33] border border-indigo-500/50 p-4 rounded-2xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-amber-300">🏊‍♂️ Berenang di Kolam Renang</span>
+                            <span class="text-xs bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">Batal Jika Air Masuk</span>
+                        </div>
+                        <p class="text-sm text-slate-300"><strong>Situasi:</strong> Aiman menyelam di dalam kolam renang dan air masuk ke dalam telinga dalam atau tertelan melalui mulut.</p>
+                        <p class="text-xs text-rose-300 mt-2 bg-rose-950/50 p-2 rounded"><strong>Sebab Hukum:</strong> Menyelam adalah perbuatan berisiko tinggi (seperti berkumur berlebihan), maka jika air masuk ke rongga dalam, puasanya batal.</p>
+                    </div>
+
+                    <div class="bg-[#140c33] border border-indigo-500/50 p-4 rounded-2xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-amber-300">💉 Suntikan Ubat di Klinik</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold">Tidak Batal (Ubat Biasa)</span>
+                        </div>
+                        <p class="text-sm text-slate-300"><strong>Situasi:</strong> Ibu menerima suntikan vaksin atau ubat penahan sakit di bahagian lengan.</p>
+                        <p class="text-xs text-emerald-300 mt-2 bg-emerald-950/50 p-2 rounded"><strong>Sebab Hukum:</strong> Suntikan melalui kulit/otot bukan melalui rongga terbuka dan tidak mengenyangkan (kecuali suntikan drip glukosa/nutrisi yang menggantikan makanan).</p>
+                    </div>
+
+                    <div class="bg-[#140c33] border border-indigo-500/50 p-4 rounded-2xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-amber-300">🍲 Merasa Makanan Ketika Memasak</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold">Sah Jika Diludah</span>
+                        </div>
+                        <p class="text-sm text-slate-300"><strong>Situasi:</strong> Puan Aminah meletakkan sedikit kuah gulai di hujung lidah untuk merasa garam, kemudian terus meludah dan berkumur.</p>
+                        <p class="text-xs text-emerald-300 mt-2 bg-emerald-950/50 p-2 rounded"><strong>Sebab Hukum:</strong> Makanan hanya menyentuh hujung lidah dan tidak masuk ke dalam kerongkong atau perut.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Aktiviti Betul (Sah) atau Batal -->
+            <div class="pixel-box-pink p-5 sm:p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h3 class="font-pixel text-sm sm:text-base text-pink-300 flex items-center gap-2">
+                        <span>⚡</span> 5. CABARAN: BETUL (SAH) ATAU BATAL?
+                    </h3>
+                    <span id="sederhana-progress" class="text-xs font-bold bg-indigo-900 px-3 py-1 rounded-full text-amber-300">Soalan 1 / 6</span>
+                </div>
+                <div id="sederhana-quiz-container" class="bg-[#120b2e] border-2 border-pink-500/40 rounded-2xl p-5">
+                    <!-- Kandungan Kuiz Tahap Sederhana -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SEKSYEN 3: TAHAP CEMERLANG (MENGANALISIS DAN MENILAI)      -->
+        <!-- ========================================================= -->
+        <section id="section-cemerlang" class="hidden space-y-6">
+            <!-- Header Tahap Cemerlang -->
+            <div class="pixel-box p-5 sm:p-6 border-pink-400">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <span class="bg-pink-500 text-white font-pixel text-[10px] px-3 py-1 rounded-full">TAHAP 3 • CEMERLANG</span>
+                        <h2 class="font-pixel text-base sm:text-xl text-pink-300 mt-2">FOKUS: MENGANALISIS & MENILAI</h2>
+                    </div>
+                    <div class="text-right text-xs sm:text-sm text-pink-200 bg-pink-950/60 px-4 py-2 rounded-xl border border-pink-500/40">
+                        Objektif: Mendalami maqasid hukum, analisis niat, kajian kes & KBAT.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1 & 2. Penerangan Hukum Mendalam & Analisis Niat / Keadaan -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                <div class="pixel-box p-5 sm:p-6">
+                    <h3 class="font-bold text-amber-300 text-lg mb-3 flex items-center gap-2">
+                        <span>🔬</span> 1. Penerangan Hukum Dengan Lebih Mendalam
+                    </h3>
+                    <div class="space-y-3 text-sm sm:text-base text-slate-200">
+                        <div class="bg-[#140c33] p-3.5 rounded-xl border border-indigo-600/50">
+                            <span class="font-bold text-cyan-300 block mb-1">Kaedah Fiqh: "Al-Umur Bi Maqasidiha"</span>
+                            Setiap perkara dinilai berdasarkan niat dan tujuannya. Dalam ibadah puasa, kesengajaan (<span class="italic">al-'amd</span>) dan pengetahuan (<span class="italic">al-'ilm</span>) menjadi penentu utama sama ada sesuatu perbuatan membatalkan puasa atau dimaafkan.
+                        </div>
+                        <div class="bg-[#140c33] p-3.5 rounded-xl border border-indigo-600/50">
+                            <span class="font-bold text-pink-300 block mb-1">Konsep Al-Jauf (Rongga Dalaman)</span>
+                            Menurut Mazhab Syafi'i, syarat batal puasa bagi kemasukan benda ialah benda itu mestilah bersifat <span class="text-amber-300 font-bold">'Ain</span> (berjisim/berbentuk) dan masuk melalui <span class="text-amber-300 font-bold">Manfaz Maftuh</span> (rongga terbuka) sehingga sampai ke <span class="text-amber-300 font-bold">Al-Jauf</span> (bahagian dalam otak, tekak/kerongkong, perut atau usus).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pixel-box p-5 sm:p-6">
+                    <h3 class="font-bold text-cyan-300 text-lg mb-3 flex items-center gap-2">
+                        <span>🧠</span> 2. Analisis Niat & Keadaan Seseorang
+                    </h3>
+                    <div class="space-y-3 text-sm sm:text-base text-slate-200">
+                        <div class="bg-[#140c33] p-3.5 rounded-xl border border-indigo-600/50">
+                            <span class="font-bold text-emerald-300 block mb-1">A. Niat Memutuskan Puasa (Azam Berbuka)</span>
+                            Jika seseorang berniat di dalam hati: <em>"Aku nak batalkan puasaku sekarang"</em> walaupun dia belum makan atau minum, menurut Mazhab Maliki puasanya telah batal. Menurut Mazhab Syafi'i, puasanya belum batal selagi tidak melakukan perkara membatalkan puasa, namun pahalanya berkurangan.
+                        </div>
+                        <div class="bg-[#140c33] p-3.5 rounded-xl border border-indigo-600/50">
+                            <span class="font-bold text-amber-300 block mb-1">B. Keadaan Jahil (Baru Masuk Islam) vs Terpaksa</span>
+                            Orang yang baru memeluk Islam dan tidak tahu hukum makan membatalkan puasa dimaafkan. Begitu juga orang yang dipaksa secara ancaman nyawa untuk makan, puasanya tidak batal kerana hilang unsur pilihan (<span class="italic">ikhtiyar</span>).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 & 4. Kajian Kes Berkaitan Puasa & Contoh Penyelesaian Masalah -->
+            <div class="pixel-box p-5 sm:p-6">
+                <h3 class="font-bold text-pink-300 text-lg sm:text-xl mb-4 flex items-center gap-2">
+                    <span>📂</span> 3 & 4. Kajian Kes & Penyelesaian Masalah
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Kajian Kes 1 -->
+                    <div class="bg-[#140c33] border-2 border-cyan-500/40 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="bg-cyan-500/20 text-cyan-300 text-xs font-bold px-2.5 py-1 rounded">KAJIAN KES 1: PESAKIT ASMA</span>
+                            <h4 class="font-bold text-white text-base sm:text-lg mt-2">Penggunaan Inhaler (Alat Sedut) Ketika Sesak Nafas</h4>
+                            <p class="text-sm text-slate-300 mt-2">
+                                <strong>Masalah:</strong> Danial menghidap penyakit asma. Pada waktu petang, dia mengalami sesak nafas dan perlu menyedut <em>inhaler</em> yang mengandungi gas dan sedikit zarah cecair ubat untuk membuka saluran pernafasan. Adakah puasanya batal?
+                            </p>
+                        </div>
+                        <div class="mt-4 bg-cyan-950/60 border-l-4 border-cyan-400 p-3 rounded-r-xl text-xs sm:text-sm">
+                            <strong class="text-cyan-300 block mb-1">Penyelesaian & Keputusan Muzakarah Fatwa:</strong>
+                            Menurut Muzakarah Jawatankuasa Fatwa Kebangsaan, penggunaan <em>inhaler</em> bagi pesakit asma <strong>TIDAK MEMBATALKAN PUASA</strong> kerana ubat tersebut masuk ke saluran pernafasan (paru-paru) untuk keperluan darurat perubatan dan bukan ke saluran makanan (perut).
+                        </div>
+                    </div>
+
+                    <!-- Kajian Kes 2 -->
+                    <div class="bg-[#140c33] border-2 border-amber-500/40 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="bg-amber-500/20 text-amber-300 text-xs font-bold px-2.5 py-1 rounded">KAJIAN KES 2: TERSALAH WAKTU</span>
+                            <h4 class="font-bold text-white text-base sm:text-lg mt-2">Berbuka Awal Kerana Menyangka Sudah Maghrib</h4>
+                            <p class="text-sm text-slate-300 mt-2">
+                                <strong>Masalah:</strong> Langit mendung gelap pada pukul 7:10 malam. Keluarga Pak Cik Roslan berbuka puasa kerana menyangka matahari telah terbenam. Tiba-tiba awan berarak dan matahari masih kelihatan belum terbenam!
+                            </p>
+                        </div>
+                        <div class="mt-4 bg-amber-950/60 border-l-4 border-amber-400 p-3 rounded-r-xl text-xs sm:text-sm">
+                            <strong class="text-amber-300 block mb-1">Penyelesaian Masalah:</strong>
+                            1. Mereka <strong>WAJIB berhenti makan serta-merta</strong> dan meludahkan sisa makanan dalam mulut.<br>
+                            2. Puasa pada hari itu dikira <strong>BATAL</strong> kerana mereka makan sebelum masuk waktu Maghrib yang sebenar.<br>
+                            3. Mereka tidak berdosa (kerana tersilap sangka), tetapi <strong>wajib mengqada puasa</strong> tersebut selepas bulan Ramadan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Cabaran KBAT (Kemahiran Berfikir Aras Tinggi) -->
+            <div class="pixel-box-gold p-5 sm:p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h3 class="font-pixel text-sm sm:text-base text-amber-300 flex items-center gap-2">
+                        <span>🏆</span> 5. CABARAN KBAT (BOSS STAGE!)
+                    </h3>
+                    <span id="cemerlang-progress" class="text-xs font-bold bg-pink-900 px-3 py-1 rounded-full text-pink-200">Soalan KBAT 1 / 4</span>
+                </div>
+                <p class="text-sm text-indigo-200 mb-4">Analisis situasi kompleks di bawah dan pilih keputusan hukum serta hujah yang paling tepat!</p>
+
+                <div id="cemerlang-quiz-container" class="bg-[#120b2e] border-2 border-amber-400/50 rounded-2xl p-5">
+                    <!-- Kandungan Kuiz KBAT -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Retro -->
+    <footer class="relative z-10 max-w-6xl mx-auto px-4 mt-12 text-center text-xs text-indigo-300/80">
+        <div class="border-t border-indigo-800/60 pt-6">
+            <p class="font-pixel text-[10px] text-amber-300/90 mb-2">🌙 JOM CELIK PUASA • EDISI RAMADAN QUEST 🌙</p>
+            <p>Direka khas untuk pembelajaran interaktif Pendidikan Islam (Tahap Rendah, Sederhana & Cemerlang).</p>
+        </div>
+    </footer>
+
+    <!-- Modal / Kotak Mesej Khas (Menggantikan alert) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+        <div class="pixel-box-gold max-w-md w-full p-6 text-center transform transition-all scale-100">
+            <div id="modal-icon" class="text-5xl mb-3">🎉</div>
+            <h3 id="modal-title" class="font-pixel text-base sm:text-lg text-amber-300 mb-2">TAHNIAH!</h3>
+            <p id="modal-message" class="text-slate-200 text-sm sm:text-base mb-5 leading-relaxed">Mesej di sini.</p>
+            <button onclick="closeModal()" class="btn-pixel bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-bold px-6 py-2.5 text-sm">
+                Teruskan Pengembaraan! 🚀
+            </button>
+        </div>
+    </div>
+
+    <script>
+        /* ==============================================================
+           1. SISTEM BUNYI RETRO 8-BIT MENGGUNAKAN TONE.JS
+           ============================================================== */
+        let soundEnabled = true;
+        let synth = null;
+
+        function initAudio() {
+            if (!synth && typeof Tone !== 'undefined') {
+                synth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: "square" },
+                    envelope: { attack: 0.01, decay: 0.1, sustain: 0.1, release: 0.2 }
+                }).toDestination();
+                synth.volume.value = -12;
+            }
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                initAudio();
+                if (Tone.context.state !== 'running') {
+                    Tone.start();
+                }
+                const now = Tone.now();
+                if (type === 'click') {
+                    synth.triggerAttackRelease("C5", "32n", now);
+                } else if (type === 'flip') {
+                    synth.triggerAttackRelease("E5", "32n", now);
+                    synth.triggerAttackRelease("G5", "32n", now + 0.05);
+                } else if (type === 'correct') {
+                    synth.triggerAttackRelease("C5", "16n", now);
+                    synth.triggerAttackRelease("E5", "16n", now + 0.08);
+                    synth.triggerAttackRelease("G5", "16n", now + 0.16);
+                    synth.triggerAttackRelease("C6", "8n", now + 0.24);
+                } else if (type === 'wrong') {
+                    synth.triggerAttackRelease("E3", "8n", now);
+                    synth.triggerAttackRelease("Eb3", "4n", now + 0.12);
+                }
+            } catch (e) {
+                // Abaikan jika browser menyekat audio sebelum interaksi
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('sound-toggle');
+            btn.textContent = soundEnabled ? '🔊' : '🔇';
+            if (soundEnabled) playSound('click');
+        }
+
+        /* ==============================================================
+           2. PENGURUSAN SKOR SYILING, NYAWA & MODAL
+           ============================================================== */
+        let coins = 0;
+        let lives = 3;
+
+        function addCoins(amount) {
+            coins += amount;
+            document.getElementById('coin-score').textContent = coins;
+        }
+
+        function loseLife() {
+            if (lives > 0) {
+                lives--;
+                renderHearts();
+            }
+            if (lives === 0) {
+                showModal(
+                    "💔",
+                    "NYAWA TAMAT!",
+                    "Jangan putus asa pengembara! Klik butang '+Pulih' di bahagian atas untuk memulihkan 3 nyawa dan teruskan belajar!"
+                );
+            }
+        }
+
+        function resetLives() {
+            playSound('correct');
+            lives = 3;
+            renderHearts();
+        }
+
+        function renderHearts() {
+            const container = document.getElementById('hearts-container');
+            let html = '';
+            for (let i = 0; i < 3; i++) {
+                html += i < lives ? '<span>❤️</span>' : '<span class="opacity-30">🖤</span>';
+            }
+            container.innerHTML = html;
+        }
+
+        function showModal(icon, title, message) {
+            document.getElementById('modal-icon').textContent = icon;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            const modal = document.getElementById('custom-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            playSound('click');
+            const modal = document.getElementById('custom-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /* ==============================================================
+           3. NAVIGASI TAB ANTARA TAHAP PENGUASAAN
+           ============================================================== */
+        function switchTab(tabName) {
+            playSound('click');
+            const tabs = ['intro', 'rendah', 'sederhana', 'cemerlang'];
+            tabs.forEach(t => {
+                const section = document.getElementById(`section-${t}`);
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tabName) {
+                    section.classList.remove('hidden');
+                    btn.classList.add('ring-4', 'ring-white');
+                } else {
+                    section.classList.add('hidden');
+                    btn.classList.remove('ring-4', 'ring-white');
+                }
+            });
+            window.scrollTo({ top: 180, behavior: 'smooth' });
+        }
+
+        /* ==============================================================
+           4. DATA & LOGIK TAHAP RENDAH (KAD NOTA BERGAMBAR & KUIZ GAMBAR)
+           ============================================================== */
+        const flashcardsData = [
+            { emoji: "🍔", title: "Makan & Minum", desc: "Memasukkan makanan atau minuman ke dalam mulut dengan sengaja.", color: "border-rose-500" },
+            { emoji: "🤮", title: "Muntah Sengaja", desc: "Memaksa diri untuk muntah seperti menjolok jari ke tekak.", color: "border-amber-500" },
+            { emoji: "🩸", title: "Haid atau Nifas", desc: "Keluar darah haid atau nifas bagi perempuan pada siang hari.", color: "border-pink-500" },
+            { emoji: "👂", title: "Masuk Benda ke Rongga", desc: "Memasukkan sesuatu ke dalam hidung, telinga dalam atau kemaluan.", color: "border-cyan-500" },
+            { emoji: "😵", title: "Pitam Sepanjang Hari", desc: "Pengsan dari sebelum Subuh hingga masuk waktu Maghrib.", color: "border-purple-500" },
+            { emoji: "🤪", title: "Hilang Akal (Gila)", desc: "Hilang kewarasan akal walaupun seketika di siang hari.", color: "border-orange-500" },
+            { emoji: "💧", title: "Keluar Mani Sengaja", desc: "Mengeluarkan air mani dengan sengaja pada siang hari.", color: "border-sky-500" },
+            { emoji: "🚫", title: "Murtad", desc: "Keluar daripada agama Islam melalui niat, perkataan atau perbuatan.", color: "border-red-600" }
+        ];
+
+        function initFlashcards() {
+            const grid = document.getElementById('flashcards-grid');
+            grid.innerHTML = flashcardsData.map((card, idx) => `
+                <div class="flip-card h-48" onclick="this.classList.toggle('flipped'); playSound('flip');">
+                    <div class="flip-card-inner">
+                        <!-- Depan Kad -->
+                        <div class="flip-card-front bg-[#150d38] border-3 ${card.color} p-4 flex flex-col items-center justify-center text-center shadow-lg">
+                            <div class="text-5xl mb-3 animate-float">${card.emoji}</div>
+                            <h4 class="font-bold text-white text-base">${idx + 1}. ${card.title}</h4>
+                            <span class="text-[11px] text-amber-300 mt-2 bg-white/10 px-2.5 py-0.5 rounded-full">👆 Klik untuk lihat maksud</span>
+                        </div>
+                        <!-- Belakang Kad -->
+                        <div class="flip-card-back bg-gradient-to-br from-[#2b165c] to-[#170c3b] border-3 border-emerald-400 p-4 flex flex-col items-center justify-center text-center shadow-lg">
+                            <div class="text-xs font-bold text-emerald-300 uppercase mb-1">Penerangan Ringkas</div>
+                            <p class="text-sm text-slate-100 leading-snug">${card.desc}</p>
+                            <span class="text-[11px] text-pink-300 mt-3">🔄 Klik untuk tutup</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Kuiz Tahap Rendah: Kenal Pasti Gambar
+        const rendahQuestions = [
+            {
+                prompt: "Manakah antara gambar berikut MEMBATALKAN PUASA jika dilakukan pada pukul 12 tengah hari?",
+                options: [
+                    { emoji: "🥤", label: "Minum Air Sirap", correct: true, reason: "Tepat! Minum dengan sengaja membatalkan puasa." },
+                    { emoji: "😴", label: "Tidur Sebentar", correct: false, reason: "Tidur di siang hari tidak membatalkan puasa." },
+                    { emoji: "📖", label: "Membaca Al-Quran", correct: false, reason: "Membaca Al-Quran sangat digalakkan dan mendapat pahala!" }
+                ]
+            },
+            {
+                prompt: "Pilih gambar perbuatan yang menyebabkan PUASA TERBATAL:",
+                options: [
+                    { emoji: "🚿", label: "Mandi Menyegarkan Badan", correct: false, reason: "Mandi untuk menyegarkan badan adalah harus dan tidak membatalkan puasa." },
+                    { emoji: "🤮", label: "Muntah Dengan Sengaja", correct: true, reason: "Betul! Sengaja memuntahkan isi perut membatalkan puasa." },
+                    { emoji: "⚽", label: "Bermain Bola Ringan", correct: false, reason: "Bersenam ringan tidak membatalkan puasa selagi tidak makan/minum." }
+                ]
+            },
+            {
+                prompt: "Gambar manakah yang menunjukkan perkara yang MEMBATALKAN PUASA?",
+                options: [
+                    { emoji: "🍽️", label: "Makan Nasi Lemak", correct: true, reason: "Syabas! Makan dengan sengaja membatalkan puasa." },
+                    { emoji: "🕌", label: "Solat Zohor Berjemaah", correct: false, reason: "Solat adalah kewajipan dan tidak membatalkan puasa." },
+                    { emoji: "🧹", label: "Menyapu Sampah", correct: false, reason: "Membantu ibu bapa mengemas rumah tidak membatalkan puasa." }
+                ]
+            },
+            {
+                prompt: "Antara berikut, manakah yang MEMBATALKAN PUASA seseorang?",
+                options: [
+                    { emoji: "👃", label: "Menghidu Bau Bunga", correct: false, reason: "Menghidu bau-bauan tidak membatalkan puasa kerana bau bukan jisim yang masuk ke perut." },
+                    { emoji: "🚬", label: "Menghisap Rokok / Vape", correct: true, reason: "Tepat! Asap rokok/vape mempunyai jisim dan disedut masuk ke rongga tekak dengan sengaja." },
+                    { emoji: "💧", label: "Menelan Air Liur Sendiri", correct: false, reason: "Menelan air liur sendiri yang bersih di dalam mulut tidak membatalkan puasa." }
+                ]
+            },
+            {
+                prompt: "Pilih situasi yang MEMBATALKAN PUASA:",
+                options: [
+                    { emoji: "💉", label: "Suntikan Vaksin di Lengan", correct: false, reason: "Suntikan ubat melalui otot tidak membatalkan puasa." },
+                    { emoji: "🩸", label: "Keluar Darah Haid", correct: true, reason: "Betul! Wanita yang datang haid terbatal puasanya serta-merta." },
+                    { emoji: "🧴", label: "Memakai Minyak Wangi", correct: false, reason: "Memakai minyak wangi adalah sunat dan tidak membatalkan puasa." }
+                ]
+            }
+        ];
+
+        let rendahIndex = 0;
+        let rendahAnswered = false;
+
+        function renderRendahQuiz() {
+            const container = document.getElementById('rendah-quiz-container');
+            const progress = document.getElementById('rendah-progress');
+            
+            if (rendahIndex >= rendahQuestions.length) {
+                progress.textContent = "Selesai! 🎉";
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <div class="text-5xl mb-3">🌟</div>
+                        <h4 class="font-pixel text-base text-emerald-300 mb-2">TAHAP RENDAH SELESAI!</h4>
+                        <p class="text-slate-300 text-sm mb-4">Syabas! Anda berjaya mengenal pasti semua gambar perkara yang membatalkan puasa.</p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <button onclick="rendahIndex = 0; renderRendahQuiz();" class="btn-pixel bg-indigo-600 text-white px-4 py-2 text-sm font-bold">🔄 Ulang Kuiz</button>
+                            <button onclick="switchTab('sederhana')" class="btn-pixel bg-sky-400 text-slate-950 px-5 py-2 text-sm font-bold">Ke Tahap 2: Sederhana ➡️</button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            rendahAnswered = false;
+            const q = rendahQuestions[rendahIndex];
+            progress.textContent = `Soalan ${rendahIndex + 1} / ${rendahQuestions.length}`;
+
+            container.innerHTML = `
+                <p class="font-bold text-white text-base sm:text-lg mb-4">${rendahIndex + 1}. ${q.prompt}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    ${q.options.map((opt, i) => `
+                        <button onclick="checkRendahAnswer(${i})" id="rendah-opt-${i}" class="btn-pixel bg-[#1f144d] hover:bg-[#2c1d6e] p-4 text-center flex flex-col items-center justify-center gap-2">
+                            <span class="text-5xl">${opt.emoji}</span>
+                            <span class="font-bold text-sm sm:text-base text-amber-200">${opt.label}</span>
+                        </button>
+                    `).join('')}
+                </div>
+                <div id="rendah-feedback" class="mt-4 hidden p-3.5 rounded-xl text-sm font-medium"></div>
+                <div id="rendah-next-wrap" class="mt-4 text-right hidden">
+                    <button onclick="rendahIndex++; renderRendahQuiz();" class="btn-pixel bg-emerald-400 text-slate-950 font-bold px-5 py-2 text-sm">
+                        Soalan Seterusnya ➡️
+                    </button>
+                </div>
+            `;
+        }
+
+        function checkRendahAnswer(selectedIdx) {
+            if (rendahAnswered) return;
+            rendahAnswered = true;
+            const q = rendahQuestions[rendahIndex];
+            const selected = q.options[selectedIdx];
+            const fb = document.getElementById('rendah-feedback');
+
+            if (selected.correct) {
+                playSound('correct');
+                addCoins(20);
+                document.getElementById(`rendah-opt-${selectedIdx}`).classList.add('bg-emerald-700', 'border-emerald-300');
+                fb.className = "mt-4 p-3.5 rounded-xl text-sm font-medium bg-emerald-950/90 border-2 border-emerald-400 text-emerald-200";
+                fb.innerHTML = `✅ <strong>TAHNIAH! (+20 🪙)</strong> ${selected.reason}`;
+            } else {
+                playSound('wrong');
+                loseLife();
+                document.getElementById(`rendah-opt-${selectedIdx}`).classList.add('bg-rose-800', 'border-rose-400');
+                fb.className = "mt-4 p-3.5 rounded-xl text-sm font-medium bg-rose-950/90 border-2 border-rose-400 text-rose-200";
+                fb.innerHTML = `❌ <strong>KURANG TEPAT!</strong> ${selected.reason}`;
+            }
+            fb.classList.remove('hidden');
+            document.getElementById('rendah-next-wrap').classList.remove('hidden');
+        }
+
+        /* ==============================================================
+           5. DATA & LOGIK TAHAP SEDERHANA (BETUL / SAH ATAU BATAL)
+           ============================================================== */
+        const sederhanaQuestions = [
+            {
+                situation: "Aminah terlupa bahawa dia sedang berpuasa lalu meminum separuh gelas air masak. Sebaik sahaja teringat, dia terus berhenti.",
+                isBatal: false,
+                explanation: "PUASA SAH (TIDAK BATAL). Makan atau minum kerana terlupa adalah rezeki daripada Allah SWT dan tidak membatalkan puasa."
+            },
+            {
+                situation: "Zul berkumur dengan sangat kuat ketika berwuduk pada waktu Zohor sehingga air masuk dan tertelan ke dalam tekaknya.",
+                isBatal: true,
+                explanation: "BATAL PUASA. Berkumur secara berlebihan (mubalaghah) adalah makruh ketika berpuasa; jika tertelan air akibat perbuatan itu, puasanya batal."
+            },
+            {
+                situation: "Siti berasa sangat loya di dalam kereta lalu dia termuntah tanpa sengaja, dan dia terus berkumur membersihkan mulutnya.",
+                isBatal: false,
+                explanation: "PUASA SAH (TIDAK BATAL). Muntah yang berlaku tanpa sengaja dan tidak ditelan semula tidak membatalkan puasa."
+            },
+            {
+                situation: "Hafiz memasukkan jari ke dalam telinganya sehingga melepasi bahagian dalam (rongga telinga) untuk membersihkan tahi telinga.",
+                isBatal: true,
+                explanation: "BATAL PUASA. Memasukkan objek berjisim ke bahagian dalam rongga telinga dengan sengaja membatalkan puasa."
+            },
+            {
+                situation: "Aisyah bermimpi basah ketika tidur pada waktu pagi bulan Ramadan dan keluar air mani.",
+                isBatal: false,
+                explanation: "PUASA SAH (TIDAK BATAL). Keluar mani kerana mimpi berlaku di luar kawalan manusia. Dia hanya perlu mandi wajib untuk bersolat."
+            },
+            {
+                situation: "Puan Salmah keluar darah haid hanya 5 minit sebelum azan Maghrib berkumandang.",
+                isBatal: true,
+                explanation: "BATAL PUASA. Apabila keluar darah haid walaupun sesaat sebelum Maghrib, puasa hari tersebut terbatal serta-merta dan wajib diqada."
+            }
+        ];
+
+        let sederhanaIndex = 0;
+        let sederhanaAnswered = false;
+
+        function renderSederhanaQuiz() {
+            const container = document.getElementById('sederhana-quiz-container');
+            const progress = document.getElementById('sederhana-progress');
+
+            if (sederhanaIndex >= sederhanaQuestions.length) {
+                progress.textContent = "Selesai! 🎉";
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <div class="text-5xl mb-3">⚔️</div>
+                        <h4 class="font-pixel text-base text-sky-300 mb-2">TAHAP SEDERHANA SELESAI!</h4>
+                        <p class="text-slate-300 text-sm mb-4">Hebat! Anda sudah mahir membezakan antara perbuatan yang sah dan membatalkan puasa.</p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <button onclick="sederhanaIndex = 0; renderSederhanaQuiz();" class="btn-pixel bg-indigo-600 text-white px-4 py-2 text-sm font-bold">🔄 Ulang Kuiz</button>
+                            <button onclick="switchTab('cemerlang')" class="btn-pixel bg-pink-500 text-white px-5 py-2 text-sm font-bold">Ke Tahap 3: Cemerlang 👑</button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            sederhanaAnswered = false;
+            const q = sederhanaQuestions[sederhanaIndex];
+            progress.textContent = `Soalan ${sederhanaIndex + 1} / ${sederhanaQuestions.length}`;
+
+            container.innerHTML = `
+                <div class="bg-[#1b1145] border border-indigo-500/40 p-4 rounded-xl mb-5">
+                    <span class="text-xs font-bold text-amber-300 uppercase">Situasi #${sederhanaIndex + 1}:</span>
+                    <p class="text-white text-base sm:text-lg mt-1 leading-relaxed">"${q.situation}"</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button onclick="checkSederhanaAnswer(false)" id="sed-btn-sah" class="btn-pixel bg-gradient-to-b from-emerald-500 to-emerald-700 text-white p-4 font-bold text-base sm:text-lg flex items-center justify-center gap-2">
+                        <span>✅</span> BETUL (PUASA SAH)
+                    </button>
+                    <button onclick="checkSederhanaAnswer(true)" id="sed-btn-batal" class="btn-pixel bg-gradient-to-b from-rose-500 to-rose-700 text-white p-4 font-bold text-base sm:text-lg flex items-center justify-center gap-2">
+                        <span>❌</span> BATAL PUASA
+                    </button>
+                </div>
+                <div id="sederhana-feedback" class="mt-4 hidden p-4 rounded-xl text-sm leading-relaxed"></div>
+                <div id="sederhana-next-wrap" class="mt-4 text-right hidden">
+                    <button onclick="sederhanaIndex++; renderSederhanaQuiz();" class="btn-pixel bg-amber-400 text-slate-950 font-bold px-5 py-2 text-sm">
+                        Soalan Seterusnya ➡️
+                    </button>
+                </div>
+            `;
+        }
+
+        function checkSederhanaAnswer(userSaysBatal) {
+            if (sederhanaAnswered) return;
+            sederhanaAnswered = true;
+            const q = sederhanaQuestions[sederhanaIndex];
+            const isCorrect = (userSaysBatal === q.isBatal);
+            const fb = document.getElementById('sederhana-feedback');
+
+            if (isCorrect) {
+                playSound('correct');
+                addCoins(30);
+                fb.className = "mt-4 p-4 rounded-xl text-sm bg-emerald-950/90 border-2 border-emerald-400 text-emerald-200";
+                fb.innerHTML = `🎉 <strong>TEPAT SEKALI! (+30 🪙)</strong><br>${q.explanation}`;
+            } else {
+                playSound('wrong');
+                loseLife();
+                fb.className = "mt-4 p-4 rounded-xl text-sm bg-rose-950/90 border-2 border-rose-400 text-rose-200";
+                fb.innerHTML = `⚠️ <strong>KURANG TEPAT!</strong><br>${q.explanation}`;
+            }
+            fb.classList.remove('hidden');
+            document.getElementById('sederhana-next-wrap').classList.remove('hidden');
+        }
+
+        /* ==============================================================
+           6. DATA & LOGIK TAHAP CEMERLANG (CABARAN KBAT)
+           ============================================================== */
+        const kbatQuestions = [
+            {
+                scenario: "Haziq sedang berpuasa. Tiba-tiba dia teringat makanan sedap di bazar Ramadan lalu berniat di dalam hatinya: 'Ah, aku nak batalkan puasa akulah sekarang!' Namun, selepas 2 minit dia menyesal, beristighfar, dan tidak jadi makan atau minum sehingga Maghrib.",
+                question: "Berdasarkan analisis niat menurut Mazhab Syafi'i, apakah status puasa Haziq?",
+                options: [
+                    "Puasanya tetap SAH selagi dia tidak melakukan perkara yang membatalkan puasa, namun pahalanya berkurangan.",
+                    "Puasanya BATAL serta-merta kerana niat puasa telah terbatal.",
+                    "Puasanya BATAL dan dia wajib membayar kaffarah."
+                ],
+                correctIndex: 0,
+                explanation: "Menurut Mazhab Syafi'i, sekadar berniat untuk berbuka tanpa melakukan perbuatan membatalkan puasa tidak membatalkan puasa (berbeza dengan niat murtad). Walau bagaimanapun, perbuatan itu makruh dan mengurangkan pahala."
+            },
+            {
+                scenario: "Seorang pesakit buah pinggang menjalani rawatan hemodialisis (cuci darah) pada waktu pagi di hospital. Dalam proses tersebut, darah dikeluarkan melalui mesin, ditapis, dan dimasukkan semula bersama sedikit cecair garam (saline) bagi menstabilkan tekanan darah.",
+                question: "Bagaimanakah penilaian hukum terhadap ibadah puasa pesakit tersebut?",
+                options: [
+                    "Puasa TIDAK BATAL kerana darah hanya ditapis dan bukan makanan.",
+                    "Puasa BATAL kerana berlaku kemasukan cecair ke dalam saluran darah utama yang menguatkan badan (menyerupai makan/minum) serta prosedur dialisis.",
+                    "Puasa SAH tetapi wajib membayar fidyah."
+                ],
+                correctIndex: 1,
+                explanation: "Menurut keputusan Muzakarah Fatwa, rawatan hemodialisis membatalkan puasa kerana proses memasukkan semula darah bersama cecair bernutrisi/garam ke dalam tubuh menjejaskan hakikat menahan diri (imsak). Pesakit boleh mengqada atau membayar fidyah jika sakit berpanjangan."
+            },
+            {
+                scenario: "Farah sedang menangis teresak-esak kerana mendapat berita sedih. Air matanya mengalir deras sehingga masuk ke dalam mulutnya dan terasa masin di lidah, lalu tertelan bersama air liur secara tidak sengaja.",
+                question: "Apakah hukum puasa Farah dan mengapakah sedemikian?",
+                options: [
+                    "BATAL, kerana air mata datang dari luar rongga mulut dan terasa masin.",
+                    "TIDAK BATAL, kerana jumlah air mata itu sedikit dan bercampur dengan air liur tanpa disengajakan untuk menelannya.",
+                    "BATAL, kerana menangis membatalkan puasa."
+                ],
+                correctIndex: 1,
+                explanation: "Jika air mata masuk ke mulut dalam kuantiti yang sangat sedikit dan tertelan secara tidak sengaja bersama air liur tanpa mampu dikawal, ia dimaafkan dan tidak membatalkan puasa. Namun jika sengaja menelan air mata yang banyak, puasanya batal."
+            },
+            {
+                scenario: "Iskandar bekerja sebagai tukang masak di hotel. Untuk memastikan hidangan berbuka puasa tidak terlalu masin, dia merasa sedikit kuah sup dengan hujung lidah dan terus meludahkannya. Malangnya, terdapat sisa rasa masin yang tertinggal pada air liurnya lalu tertelan.",
+                question: "Apakah tindakan terbaik untuk mengelakkan puasanya terbatal?",
+                options: [
+                    "Terus menelan air liur tersebut kerana rasa itu sudah hilang.",
+                    "Meludah dan berkumur ringan dengan air bersih selepas merasa makanan supaya tiada jisim/rasa kuah yang tertelan.",
+                    "Tidak perlu meludah kerana tukang masak diberi kelonggaran menelan kuah."
+                ],
+                correctIndex: 1,
+                explanation: "Merasa makanan tanpa menelannya adalah harus apabila ada keperluan. Untuk memastikan puasa kekal sah, hendaklah meludah dan berkumur sehingga hilang kesan rasa makanan sebelum menelan air liur."
+            }
+        ];
+
+        let kbatIndex = 0;
+        let kbatAnswered = false;
+
+        function renderKbatQuiz() {
+            const container = document.getElementById('cemerlang-quiz-container');
+            const progress = document.getElementById('cemerlang-progress');
+
+            if (kbatIndex >= kbatQuestions.length) {
+                progress.textContent = "Tamat! 👑";
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <div class="text-6xl mb-3 animate-float">👑</div>
+                        <h4 class="font-pixel text-base sm:text-lg text-amber-300 mb-2">TAHNIAH JUARA CELIK PUASA!</h4>
+                        <p class="text-slate-200 text-sm sm:text-base max-w-lg mx-auto mb-5">
+                            Anda telah menamatkan kesemua tahap penguasaan (Rendah, Sederhana & Cemerlang) dengan cemerlang! Jumlah syiling emas terkumpul: <strong class="text-amber-300">${coins} 🪙</strong>.
+                        </p>
+                        <button onclick="kbatIndex = 0; renderKbatQuiz();" class="btn-pixel bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-2.5 text-sm font-bold">
+                            🔄 Ulang Cabaran KBAT
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            kbatAnswered = false;
+            const q = kbatQuestions[kbatIndex];
+            progress.textContent = `Soalan KBAT ${kbatIndex + 1} / ${kbatQuestions.length}`;
+
+            container.innerHTML = `
+                <div class="bg-[#1b1145] border-l-4 border-pink-500 p-4 rounded-r-xl mb-4">
+                    <span class="text-xs font-bold text-pink-300 uppercase">Kajian Kes KBAT #${kbatIndex + 1}:</span>
+                    <p class="text-slate-200 text-sm sm:text-base mt-1 leading-relaxed">${q.scenario}</p>
+                </div>
+                <p class="font-bold text-amber-300 text-base mb-4">❓ ${q.question}</p>
+                <div class="space-y-3">
+                    ${q.options.map((opt, idx) => `
+                        <button onclick="checkKbatAnswer(${idx})" id="kbat-opt-${idx}" class="btn-pixel w-full bg-[#1f144d] hover:bg-[#2d1e6e] text-left p-4 text-sm sm:text-base text-white flex items-start gap-3">
+                            <span class="bg-amber-400 text-slate-950 font-bold w-7 h-7 rounded-lg flex items-center justify-center shrink-0">${String.fromCharCode(65 + idx)}</span>
+                            <span>${opt}</span>
+                        </button>
+                    `).join('')}
+                </div>
+                <div id="kbat-feedback" class="mt-4 hidden p-4 rounded-xl text-sm leading-relaxed"></div>
+                <div id="kbat-next-wrap" class="mt-4 text-right hidden">
+                    <button onclick="kbatIndex++; renderKbatQuiz();" class="btn-pixel bg-amber-400 text-slate-950 font-bold px-5 py-2 text-sm">
+                        Soalan KBAT Seterusnya ➡️
+                    </button>
+                </div>
+            `;
+        }
+
+        function checkKbatAnswer(selectedIdx) {
+            if (kbatAnswered) return;
+            kbatAnswered = true;
+            const q = kbatQuestions[kbatIndex];
+            const isCorrect = (selectedIdx === q.correctIndex);
+            const fb = document.getElementById('kbat-feedback');
+
+            // Warnakan jawapan betul
+            document.getElementById(`kbat-opt-${q.correctIndex}`).classList.add('bg-emerald-700', 'border-emerald-300');
+
+            if (isCorrect) {
+                playSound('correct');
+                addCoins(50);
+                fb.className = "mt-4 p-4 rounded-xl text-sm bg-emerald-950/90 border-2 border-emerald-400 text-emerald-200";
+                fb.innerHTML = `👑 <strong>ANALISIS CEMERLANG! (+50 🪙)</strong><br>${q.explanation}`;
+            } else {
+                playSound('wrong');
+                loseLife();
+                document.getElementById(`kbat-opt-${selectedIdx}`).classList.add('bg-rose-800', 'border-rose-400');
+                fb.className = "mt-4 p-4 rounded-xl text-sm bg-rose-950/90 border-2 border-rose-400 text-rose-200";
+                fb.innerHTML = `💡 <strong>SEMAK HUJAH FIQH:</strong><br>${q.explanation}`;
+            }
+            fb.classList.remove('hidden');
+            document.getElementById('kbat-next-wrap').classList.remove('hidden');
+        }
+
+        /* ==============================================================
+           7. JANA BINTANG BERKELIP & INISIALISASI HALAMAN
+           ============================================================== */
+        function createStarfield() {
+            const container = document.getElementById('starfield');
+            const starCount = 45;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 2;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+                if (i % 4 === 0) star.style.background = '#ffbe0b';
+                container.appendChild(star);
+            }
+        }
+
+        window.onload = function() {
+            createStarfield();
+            initFlashcards();
+            renderRendahQuiz();
+            renderSederhanaQuiz();
+            renderKbatQuiz();
+        };
+    </script>
+</body>
+</html>
